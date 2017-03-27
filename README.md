@@ -1,6 +1,6 @@
 Spring-boot-template
 =====================================
-Sample Springboot application  
+This is an example of Springboot application with basic CRUD. 
 
 ## Run Springboot app
 * Run `./gradlew run` 

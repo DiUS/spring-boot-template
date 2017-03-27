@@ -11,12 +11,11 @@ import org.springframework.web.client.RestTemplate;
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
-        packages("com.dius.application.controllers");
         registerEndpoints();
     }
 
     private void registerEndpoints() {
-        packages(" com.dius.application.controllers");
+        packages("com.dius.application.controllers");
     }
 
     @Bean

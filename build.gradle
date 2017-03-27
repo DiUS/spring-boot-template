@@ -35,7 +35,6 @@ dependencies {
     testCompile (
         "org.assertj:assertj-core:$assertjVersion",
         "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
-
     )
 }
 
