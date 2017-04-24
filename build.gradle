@@ -1,45 +1,20 @@
-buildscript {
-    repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
-        mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.RELEASE")
-    }
-}
-
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-apply plugin: 'spring-boot'
-
-jar {
-    baseName = 'seedproject'
-    version =  '0.1.0'
-}
-// In this section you declare where to find the dependencies of your project
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
-}
-
-// In this section you declare the dependencies for your production and test code
-dependencies {
-    compile(
-        "org.springframework.boot:spring-boot-starter-parent:$springbootVersion",
-        "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
-        "org.springframework.boot:spring-boot-starter-jersey:$springbootVersion",
-        "org.slf4j:slf4j-api:$slf4jVersion"
-    )
-
-    testCompile (
-        "org.assertj:assertj-core:$assertjVersion",
-        "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
-    )
-}
-
-
+apply plugin: 'idea'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '3.4.1'
+}
+
+allprojects {
+    apply plugin: "idea"
+    apply plugin: 'java'
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            maven { url "http://repo.spring.io/libs-snapshot" }
+            mavenLocal()
+            mavenCentral()
+        }
+    }
 }
