@@ -1,15 +1,33 @@
 Spring-boot-template
 =====================================
-This is an example of Springboot application with basic CRUD. 
+This is an example of SpringBoot application with basic CRUD, integrating with consumer driven contract testing PACT. The project now includes 2 separate modules/services:
+* account-api (Provider)
+* account-client (Consumer)
 
-## Run Springboot app
-* Run `./gradlew run` 
-* Open `http://localhost:8080/` in the browser
+## Test API using PACT
 
+### Step 1: Generate Pact File
+	./gradlew :account-client:clean :account-client:test
 
-## Useful curl commands
-* Show all accounts `curl -v -X GET -H 'Content-Type: application/json' 'http://localhost:8080/accounts'`
-* Create new account `curl -v -X POST -H 'Content-Type: application/json' 'http://localhost:8080/accounts' -d "{\"name\":\"Tuan\", \"address\": \"99 Queen st\"}"`
-* Get account by ID `curl -v -X GET -H 'Content-Type: application/json' 'http://localhost:8080/accounts/1'`
-* Delete account `curl -v -X DELETE -H 'Content-Type: application/json' 'http://localhost:8080/accounts/1'`
-* Update an account `curl -v -X PUT -H 'Content-Type: application/json' 'http://localhost:8080/accounts/1' -d "{\"name\":\"Modified Name\"}"`
+Gradle task will generate `pacts/Account_Consumer-Account_Provider.json`
+
+### Step 2: Run SpringBoot Application
+	./gradlew bootRun
+
+### Step 3: Verify Pact
+Open second terminal window and run following command:
+
+	./gradlew pactVerify
+
+If everything configured properly, you will see the following output in the terminal
+
+	```Verifying a pact between Account_Consumer and accountProvider
+     [Using file /Users/tuanpham/works/dius/others/spring-boot-template/pacts/Account_Consumer-Account_Provider.json]
+     Given Account_State
+            WARNING: State Change ignored as there is no stateChange URL
+     Get all Accounts request
+       returns a response which
+         has status code 200 (OK)
+         includes headers
+           "Content-Type" with value "application/json" (OK)
+         has a matching body (OK)```
