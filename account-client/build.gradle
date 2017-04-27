@@ -25,6 +25,11 @@ dependencies {
 
     test {
         systemProperties['pact.rootDir'] = "$projectDir/../pacts"
-        println("Generate pact at $projectDir/../pacts")
+        println("Generate pact files at $projectDir/../pacts")
+    }
+
+    test.doFirst {
+        delete "$projectDir/../pacts/"
+        println "Delete existinng pact files at $projectDir/../pacts/"
     }
 }

@@ -1,4 +1,4 @@
-Spring-boot-template
+Spring-boot-template [![CircleCI](https://circleci.com/gh/DiUS/spring-boot-template.svg?style=svg)](https://circleci.com/gh/DiUS/spring-boot-template)
 =====================================
 This is an example of SpringBoot application with basic CRUD, integrating with consumer driven contract testing PACT. The project now includes 2 separate modules/services:
 * account-api (Provider)
@@ -7,7 +7,7 @@ This is an example of SpringBoot application with basic CRUD, integrating with c
 ## Test API using PACT
 
 ### Step 1: Generate Pact File
-	./gradlew :account-client:clean :account-client:test
+	./gradlew :account-client:test
 
 Gradle task will generate `pacts/Account_Consumer-Account_Provider.json`
 
