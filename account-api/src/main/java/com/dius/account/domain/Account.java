@@ -14,6 +14,9 @@ public class Account {
         this.address = address;
     }
 
+    public Account() {
+    }
+
     public Long getId() {
         return id;
     }

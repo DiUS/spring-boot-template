@@ -37,7 +37,7 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
     )
 }
-
+import com.wiredforcode.gradle.spawn.*
 task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
     command "java " +
             "-Dspring.profiles.active=test -jar ${jar.archivePath}"
@@ -49,7 +49,16 @@ task stopProvider(type: KillProcessTask) { }
 pact {
     serviceProviders {
         accountProvider {
-            hasPactsWith('accountConsumer') {
+            /*
+
+            TODO: startProviderTask does not work
+            port = 8080
+            startProviderTask = startProvider
+            terminateProviderTask = stopProvider
+            stateChangeUrl = url('http://localhost:8080/pactStateChange')
+            */
+
+            hasPactsWith('Account_Consumer') {
                 pactFileLocation = file("$projectDir/../pacts")
             }
         }

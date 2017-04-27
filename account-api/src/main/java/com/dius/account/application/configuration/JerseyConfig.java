@@ -1,5 +1,6 @@
 package com.dius.account.application.configuration;
 
+import com.dius.account.application.controllers.AccountController;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,10 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void registerEndpoints() {
-        packages("com.dius.account.application.controllers");
+        // Manually register resource to avoid
+        // java.io.FileNotFoundException: xyz.jar!/BOOT-INF/classes
+        // when running flat jar. For more info, visit https://github.com/spring-projects/spring-boot/issues/1468
+        register(AccountController.class);
     }
 
     @Bean

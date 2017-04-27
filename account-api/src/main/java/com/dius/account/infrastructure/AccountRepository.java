@@ -18,6 +18,7 @@ public class AccountRepository {
 
     public AccountRepository() {
         accounts.put(1L, new Account(1L, "Nicole", "99 Queen st"));
+        accounts.put(2L, new Account(2L, "Tom", "Anywhere but here"));
     }
 
     public Account create(Account account) {
