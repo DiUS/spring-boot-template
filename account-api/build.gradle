@@ -41,7 +41,7 @@ import com.wiredforcode.gradle.spawn.*
 task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
     command "java " +
             "-Dspring.profiles.active=test -jar ${jar.archivePath}"
-    ready 'Started @'
+    ready 'Started Application'
 }
 
 task stopProvider(type: KillProcessTask) { }
@@ -49,14 +49,11 @@ task stopProvider(type: KillProcessTask) { }
 pact {
     serviceProviders {
         accountProvider {
-            /*
 
-            TODO: startProviderTask does not work
             port = 8080
             startProviderTask = startProvider
             terminateProviderTask = stopProvider
             stateChangeUrl = url('http://localhost:8080/pactStateChange')
-            */
 
             hasPactsWith('Account_Consumer') {
                 pactFileLocation = file("$projectDir/../pacts")
