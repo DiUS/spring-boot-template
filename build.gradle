@@ -1,9 +1,5 @@
 apply plugin: 'idea'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
-}
-
 allprojects {
     apply plugin: "idea"
     apply plugin: 'java'
