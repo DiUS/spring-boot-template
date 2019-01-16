@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springbootVersion")
         classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
     }
 }
@@ -10,7 +10,7 @@ plugins {
     id "com.wiredforcode.spawn" version "0.8.2"
 }
 
-apply plugin: 'spring-boot'
+apply plugin: "org.springframework.boot"
 apply plugin: "com.wiredforcode.spawn"
 
 jar {
