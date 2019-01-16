@@ -1,72 +1,72 @@
 {
-    "provider": {
-        "name": "Account_Provider"
-    },
-    "consumer": {
-        "name": "Account_Consumer"
-    },
-    "interactions": [
-        {
-            "description": "Create new Accounts",
-            "request": {
-                "method": "POST",
-                "path": "/accounts",
-                "headers": {
-                    "Content-Type": "application/json"
-                },
-                "body": {
-                    "address": "Anywhere",
-                    "id": 99,
-                    "name": "NEW ACCOUNT"
-                }
-            },
-            "response": {
-                "status": 201
-            }
+  "provider": {
+    "name": "Account_Provider"
+  },
+  "consumer": {
+    "name": "Account_Consumer"
+  },
+  "interactions": [
+    {
+      "description": "Create new Accounts",
+      "request": {
+        "method": "POST",
+        "path": "/accounts",
+        "headers": {
+          "Content-Type": "application/json"
         },
-        {
-            "description": "Delete Account",
-            "request": {
-                "method": "DELETE",
-                "path": "/accounts/2"
-            },
-            "response": {
-                "status": 200
-            }
-        },
-        {
-            "description": "Find all Accounts",
-            "request": {
-                "method": "GET",
-                "path": "/accounts"
-            },
-            "response": {
-                "status": 200,
-                "headers": {
-                    "Content-Type": "application/json"
-                }
-            }
-        },
-        {
-            "description": "Get Account By ID",
-            "request": {
-                "method": "GET",
-                "path": "/accounts/1"
-            },
-            "response": {
-                "status": 200,
-                "headers": {
-                    "Content-Type": "application/json"
-                }
-            }
+        "body": {
+          "address": "Anywhere",
+          "name": "NEW ACCOUNT",
+          "id": 99
         }
-    ],
-    "metadata": {
-        "pact-specification": {
-            "version": "2.0.0"
-        },
-        "pact-jvm": {
-            "version": "3.3.2"
+      },
+      "response": {
+        "status": 201
+      }
+    },
+    {
+      "description": "Delete Account",
+      "request": {
+        "method": "DELETE",
+        "path": "/accounts/2"
+      },
+      "response": {
+        "status": 200
+      }
+    },
+    {
+      "description": "Find all Accounts",
+      "request": {
+        "method": "GET",
+        "path": "/accounts"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
         }
+      }
+    },
+    {
+      "description": "Get Account By ID",
+      "request": {
+        "method": "GET",
+        "path": "/accounts/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
     }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.6.1"
+    }
+  }
 }

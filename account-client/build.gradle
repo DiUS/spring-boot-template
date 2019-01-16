@@ -15,11 +15,13 @@ repositories {
 dependencies {
     compile(
         project(":account-api")
-    )
+    ) {
+        exclude group: "org.codehaus.groovy", module: "groovy"
+    }
 
     testCompile (
         "org.assertj:assertj-core:$assertjVersion",
-        "au.com.dius:pact-jvm-consumer-junit_2.11:$pactVersion"
+        "au.com.dius:pact-jvm-consumer-junit_2.12:$pactVersion"
     )
 
     test {
