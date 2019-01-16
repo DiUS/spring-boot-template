@@ -18,12 +18,6 @@ jar {
     version =  "$version"
 }
 
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
-}
-
 dependencies {
     compile(
         "org.springframework.boot:spring-boot-starter-parent:$springbootVersion",
@@ -38,10 +32,10 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
     )
 }
+
 import com.wiredforcode.gradle.spawn.*
 task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
-    command "java " +
-            "-Dspring.profiles.active=test -jar ${jar.archivePath}"
+    command "java -Dspring.profiles.active=test -jar ${jar.archivePath}"
     ready 'Started Application'
 }
 

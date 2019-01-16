@@ -1,23 +1,12 @@
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-
 jar {
     baseName = 'account-client'
     version =  "$version"
 }
 
-// In this section you declare where to find the dependencies of your project
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 dependencies {
     compile(
         project(":account-api")
-    ) {
-        exclude group: "org.codehaus.groovy", module: "groovy"
-    }
+    )
 
     testCompile (
         "org.assertj:assertj-core:$assertjVersion",
