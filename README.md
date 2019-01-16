@@ -18,7 +18,7 @@ To verify pact, run below command. Gradle will start Springboot app first, verif
 
 If everything configured properly, you will see the following output in the terminal
 
-	```Verifying a pact between Account_Consumer and accountProvider
+	Verifying a pact between Account_Consumer and accountProvider
          [Using file /Users/tuanpham/works/dius/others/spring-boot-template/pacts/Account_Consumer-Account_Provider.json]
          Create new Accounts
            returns a response which
@@ -41,4 +41,4 @@ If everything configured properly, you will see the following output in the term
                "Content-Type" with value "application/json" (OK)
              has a matching body (OK)
        :account-api:stopProvider
-       :account-api:pactVerify```
+       :account-api:pactVerify
