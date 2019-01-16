@@ -1,15 +1,6 @@
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-
 jar {
     baseName = 'account-client'
     version =  "$version"
-}
-
-// In this section you declare where to find the dependencies of your project
-repositories {
-    mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
@@ -19,9 +10,8 @@ dependencies {
 
     testCompile (
         "org.assertj:assertj-core:$assertjVersion",
-        "au.com.dius:pact-jvm-consumer-junit_2.11:$pactVersion"
+        "au.com.dius:pact-jvm-consumer-junit_2.12:$pactVersion"
     )
-
 
     test {
         systemProperties['pact.rootDir'] = "$projectDir/../pacts"
@@ -30,6 +20,6 @@ dependencies {
 
     test.doFirst {
         delete "$projectDir/../pacts/"
-        println "Delete existinng pact files at $projectDir/../pacts/"
+        println "Delete existing pact files at $projectDir/../pacts/"
     }
 }

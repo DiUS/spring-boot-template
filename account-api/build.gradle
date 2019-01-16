@@ -1,27 +1,21 @@
 buildscript {
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springbootVersion")
         classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
     }
 }
 
 plugins {
-    id "au.com.dius.pact" version "3.3.7"
+    id "au.com.dius.pact" version "3.5.24"
     id "com.wiredforcode.spawn" version "0.8.2"
 }
 
-apply plugin: 'spring-boot'
+apply plugin: "org.springframework.boot"
 apply plugin: "com.wiredforcode.spawn"
 
 jar {
     baseName = 'account-api'
     version =  "$version"
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
 dependencies {
@@ -38,10 +32,10 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
     )
 }
+
 import com.wiredforcode.gradle.spawn.*
 task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
-    command "java " +
-            "-Dspring.profiles.active=test -jar ${jar.archivePath}"
+    command "java -Dspring.profiles.active=test -jar ${jar.archivePath}"
     ready 'Started Application'
 }
 
