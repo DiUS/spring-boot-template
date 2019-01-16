@@ -22,7 +22,6 @@ dependencies {
         "au.com.dius:pact-jvm-consumer-junit_2.11:$pactVersion"
     )
 
-
     test {
         systemProperties['pact.rootDir'] = "$projectDir/../pacts"
         println("Generate pact files at $projectDir/../pacts")
@@ -30,6 +29,6 @@ dependencies {
 
     test.doFirst {
         delete "$projectDir/../pacts/"
-        println "Delete existinng pact files at $projectDir/../pacts/"
+        println "Delete existing pact files at $projectDir/../pacts/"
     }
 }
