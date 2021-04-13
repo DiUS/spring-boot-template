@@ -1,53 +1,77 @@
 buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springbootVersion")
-        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+        classpath "gradle.plugin.com.github.hesch:gradle-execfork-plugin:0.1.15"
     }
 }
 
+
 plugins {
-    id "au.com.dius.pact" version "3.5.24"
-    id "com.wiredforcode.spawn" version "0.8.2"
+    id "au.com.dius.pact" version "4.2.2"
+    id 'com.github.hesch.execfork' version '0.1.15'
 }
 
 apply plugin: "org.springframework.boot"
-apply plugin: "com.wiredforcode.spawn"
 
 jar {
     baseName = 'account-api'
-    version =  "$version"
+    version = "$version"
 }
 
 dependencies {
     compile(
-        "org.springframework.boot:spring-boot-starter-parent:$springbootVersion",
-        "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
-        "org.springframework.boot:spring-boot-starter-jersey:$springbootVersion",
-        "javax.xml.bind:jaxb-api:2.3.1",
-        "org.slf4j:slf4j-api:$slf4jVersion"
+            "org.springframework.boot:spring-boot-starter-parent:$springbootVersion",
+            "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
+            "org.springframework.boot:spring-boot-starter-jersey:$springbootVersion",
+            "javax.xml.bind:jaxb-api:2.3.1",
+            "org.slf4j:slf4j-api:$slf4jVersion"
     )
 
-    testCompile (
-        "org.assertj:assertj-core:$assertjVersion",
-        "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
+    testCompile(
+            "org.assertj:assertj-core:$assertjVersion",
+            "org.springframework.boot:spring-boot-starter-test:$springbootVersion"
     )
 }
 
-import com.wiredforcode.gradle.spawn.*
-task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
-    command "java -Dspring.profiles.active=test -jar ${jar.archivePath}"
-    ready 'Started Application'
+task startProvider(type: com.github.psxpaul.task.JavaExecFork) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.dius.account.Application'
+//    args = [ '-d', '/foo/bar/data', '-v', '-l', '3' ]
+    jvmArgs = ['-Xmx500m', '-Djava.awt.headless=true']
+    workingDir = "$buildDir/server"
+    standardOutput = "$buildDir/daemon.log"
+    errorOutput = "$buildDir/daemon-error.log"
+//    stopAfter = verify
+    waitForPort = 8080
+    waitForOutput = 'started'
+//    environment 'JAVA_HOME', "C:\\Program Files\\AdoptOpenJDK\\jdk-11.0.7.10-hotspot"
 }
 
-task stopProvider(type: KillProcessTask) { }
+
+task startProviderIfNeeded {
+    doLast {
+        println 'Will start the api provider if property "doLaunchProvider" was set via "-PdoLaunchProvider" argument!'
+    }
+}
+// link tasks against each other, if the property "doLaunchProvider" is set
+if (project.hasProperty("doLaunchProvider")) {
+    startProviderIfNeeded.finalizedBy(startProvider)
+}
+
 
 pact {
     serviceProviders {
         accountProvider {
 
             port = 8080
-            startProviderTask = startProvider
-            terminateProviderTask = stopProvider
+            startProviderTask = startProviderIfNeeded
+//            terminateProviderTask = stopProvider
             stateChangeUrl = url('http://localhost:8080/pactStateChange')
 
             hasPactsWith('Account_Consumer') {

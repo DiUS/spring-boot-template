@@ -1,11 +1,11 @@
 package com.dius.account.infrastructure.client;
 
 import au.com.dius.pact.consumer.Pact;
-import au.com.dius.pact.consumer.PactProviderRule;
+import au.com.dius.pact.consumer.PactProviderRuleMk2;
 import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.model.PactFragment;
+import au.com.dius.pact.model.RequestResponsePact;
 import com.dius.account.domain.Account;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Rule;
@@ -31,10 +31,10 @@ public class AccountClientTest {
             .build();
 
     @Rule
-    public PactProviderRule mockProvider = new PactProviderRule("Account_Provider", "localhost", 8080, this);
+    public PactProviderRuleMk2 mockProvider = new PactProviderRuleMk2("Account_Provider", "localhost", 8080, this);
 
     @Pact(consumer = ACCOUNT_CONSUMMER)
-    public PactFragment getFragment(PactDslWithProvider builder) {
+    public RequestResponsePact getFragment(PactDslWithProvider builder) {
 
         return builder
                 .uponReceiving("Get Account By ID")
@@ -44,11 +44,11 @@ public class AccountClientTest {
                 .willRespondWith()
                 .headers(HEADERS)
                 .status(HttpStatus.OK.value())
-                .toFragment();
+                .toPact();
     }
 
     @Pact(consumer = ACCOUNT_CONSUMMER)
-    public PactFragment deleteFragment(PactDslWithProvider builder) {
+    public RequestResponsePact deleteFragment(PactDslWithProvider builder) {
         return builder
                 .uponReceiving("Delete Account")
                 .path("/accounts/2")
@@ -56,11 +56,11 @@ public class AccountClientTest {
 
                 .willRespondWith()
                 .status(HttpStatus.OK.value())
-                .toFragment();
+                .toPact();
     }
 
     @Pact(consumer = ACCOUNT_CONSUMMER)
-    public PactFragment findAllFragment(PactDslWithProvider builder) {
+    public RequestResponsePact findAllFragment(PactDslWithProvider builder) {
 
         return builder
                 .uponReceiving("Find all Accounts")
@@ -70,11 +70,11 @@ public class AccountClientTest {
                 .willRespondWith()
                 .headers(HEADERS)
                 .status(HttpStatus.OK.value())
-                .toFragment();
+                .toPact();
     }
 
     @Pact(consumer = ACCOUNT_CONSUMMER)
-    public PactFragment createFragment(PactDslWithProvider builder) {
+    public RequestResponsePact createFragment(PactDslWithProvider builder) {
 
         return builder
                 .uponReceiving("Create new Accounts")
@@ -85,7 +85,7 @@ public class AccountClientTest {
 
                 .willRespondWith()
                 .status(HttpStatus.CREATED.value())
-                .toFragment();
+                .toPact();
     }
 
     @Test
