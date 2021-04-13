@@ -6,15 +6,43 @@ This is an example of SpringBoot application with basic CRUD, integrating with c
 
 ## Test API using PACT
 
+Go to the project folder.
+
 ### Step 1: Generate Pact File
+
 	./gradlew :account-client:test
 
 Gradle task will generate `pacts/Account_Consumer-Account_Provider.json`
 
 ### Step 2: Verify Pact
-To verify pact, run below command. Gradle will start Springboot app first, verify pact, then close the app.
+You can verify the pact by launching the provider explicitly, 
+e.g. during the development process
+or by making gradle launch your provider application. 
 
-	./gradlew pactVerify
+
+#### Step 2a: Let gradle launch the provider-application
+
+To verify pact, run below command. 
+Gradle will start Springboot app first, verify pact, then close the app.
+
+	./gradlew :account-api:pactVerify -PdoLaunchProvider
+
+#### Step 2b: Launch the application explicitely
+
+Start the Springboot app first. 
+You can verify if the app is running by opening `http://localhost:8080/accounts/`
+
+	./gradlew :account-api:bootRun
+
+
+
+After the app is running - verify pact on the running app.
+
+	./gradlew :account-api:pactVerify 
+
+	
+### Step 3: Output
+
 
 If everything configured properly, you will see the following output in the terminal
 
