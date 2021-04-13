@@ -7,6 +7,8 @@ This is an example of SpringBoot application with basic CRUD, integrating with c
 ## Test API using PACT
 
 Go to the project folder.
+If running on windows - in the following replace
+`./gradlew` by `gradlew.bat`. 
 
 ### Step 1: Generate Pact File
 
@@ -33,8 +35,6 @@ Start the Springboot app first.
 You can verify if the app is running by opening `http://localhost:8080/accounts/`
 
 	./gradlew :account-api:bootRun
-
-
 
 After the app is running - verify pact on the running app.
 
